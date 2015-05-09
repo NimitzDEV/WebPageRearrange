@@ -12,14 +12,39 @@ $path = str_replace('id->','#',$_GET['path']) ;
 $replacer = $_GET['replacer'];
 $cat = $_GET['cat'];
 $title = $_GET['title'];
+$rm = $_GET['rm'];
+$rc = $_GET['rc'];
+/*参数判断*/
 if($site_url == '' || $path == '' || $cat == '') die('参数不完整');
 if($title == '') $title = '无标题';
-
 $html = phpQuery::newDocumentFile($site_url);
 /*数组*/
 $div_path = explode('|||',$path);
-$div_replacer = explode('|||',$replacer);
 $div_cat = explode('|||',$cat);
+/*文档处理*/
+/*RUN REPLACER*/
+if($replacer != ''){
+    $div_replacer = explode('|||',$replacer);
+    for($i = 0;$i < count($div_replacer);$i++) {
+        $div_div_replacedata = explode('||',$div_replacer[$i]);
+        $html = str_replace($div_div_replacedata[0],$div_div_replacedata[1],$html);
+    }
+}
+/*RUN REMOVER*/
+if($rm != ''){
+    $div_rm = explode('|||',$rm);
+    for($i = 0;$i < count($div_rm);$i++){
+        $html -> find($div_rm[$i]) -> remove();
+    }
+}
+/*RUN CLASS-REMOVER*/
+if($rc != ''){
+    $div_rc = explode('|||',$rc);
+    for($i = 0;$i < count($div_rc);$i++){
+        $div_div_rc = explode('||',$div_rc[$i]);
+        $html -> find($div_div_rc[0]) -> removeClass($div_div_rc[1]);
+    }
+}
 ?>
 
 <!doctype html>
@@ -47,21 +72,12 @@ $div_cat = explode('|||',$cat);
 <!--LIST-->
 <div data-am-widget="list_news" class="am-list-news am-list-news-default">
     <?php
-        /*RUN REPLACER*/
-        if($replacer != ''){
-            for($i0 = 0;$i0 < count($div_replacer);$i0++)
-            {
-                $div_div_replacedata = explode('||',$div_replacer[$i0]);
-                $html = str_replace($div_div_replacedata[0],$div_div_replacedata[1],$html);
-            }
-        }
-        for($i1 = 0;$i1 < count($div_path);$i1++)
-        {
+        for($i = 0;$i < count($div_path);$i++) {
             /*OUT PUT HEADER*/
-            echo '<div class="am-list-news-hd am-cf"><a><h2>';echo $div_cat[$i1];echo '</h2></a></div>';
+            echo '<div class="am-list-news-hd am-cf"><a><h2>';echo $div_cat[$i];echo '</h2></a></div>';
             /*OUT PUT DATA*/
             echo '<div class="am-list-news-bd">';
-            echo $html -> find($div_path[$i1]) -> html();
+            echo $html -> find($div_path[$i]) -> html();
             echo '</div>';
         }
     ?>
