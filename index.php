@@ -37,6 +37,7 @@ $div_cat = explode('|||',$cat);
     <link rel="stylesheet" href="assets/css/amazeui.min.css">
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
+<body>
 <!-- Header -->
 <header data-am-widget="header" class="am-header am-header-default">
     <h1 class="am-header-title" style="margin: 0 0 0 0;">
@@ -65,3 +66,4 @@ $div_cat = explode('|||',$cat);
         }
     ?>
 </div>
+</body>
