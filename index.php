@@ -19,30 +19,30 @@ if($site_url == '' || $path == '' || $cat == '') die('参数不完整');
 if($title == '') $title = '无标题';
 $html = phpQuery::newDocumentFile($site_url);
 /*数组*/
-$div_path = explode('|||',$path);
-$div_cat = explode('|||',$cat);
+$path_array = explode('|||',$path);
+$cat_array = explode('|||',$cat);
 /*文档处理*/
 /*RUN REPLACER*/
 if($replacer != ''){
-    $div_replacer = explode('|||',$replacer);
-    for($i = 0;$i < count($div_replacer);$i++) {
-        $div_div_replacedata = explode('||',$div_replacer[$i]);
-        $html = str_replace($div_div_replacedata[0],$div_div_replacedata[1],$html);
+    $replacer_array = explode('|||',$replacer);
+    for($i = 0;$i < count($replacer_array);$i++) {
+        $replacer_data = explode('||',$replacer_array[$i]);
+        $html = str_replace($replacer_data[0],$replacer_data[1],$html);
     }
 }
 /*RUN REMOVER*/
 if($rm != ''){
-    $div_rm = explode('|||',$rm);
-    for($i = 0;$i < count($div_rm);$i++){
-        $html -> find($div_rm[$i]) -> remove();
+    $rm_array = explode('|||',$rm);
+    for($i = 0;$i < count($rm_array);$i++){
+        $html -> find($rm_array[$i]) -> remove();
     }
 }
 /*RUN CLASS-REMOVER*/
 if($rc != ''){
-    $div_rc = explode('|||',$rc);
-    for($i = 0;$i < count($div_rc);$i++){
-        $div_div_rc = explode('||',$div_rc[$i]);
-        $html -> find($div_div_rc[0]) -> removeClass($div_div_rc[1]);
+    $rc_array = explode('|||',$rc);
+    for($i = 0;$i < count($rc_array);$i++){
+        $rc_data = explode('||',$rc_array[$i]);
+        $html -> find($rc_data[0]) -> removeClass($rc_data[1]);
     }
 }
 ?>
@@ -72,12 +72,12 @@ if($rc != ''){
 <!--LIST-->
 <div data-am-widget="list_news" class="am-list-news am-list-news-default">
     <?php
-        for($i = 0;$i < count($div_path);$i++) {
+        for($i = 0;$i < count($path_array);$i++) {
             /*OUT PUT HEADER*/
-            echo '<div class="am-list-news-hd am-cf"><a><h2>';echo $div_cat[$i];echo '</h2></a></div>';
+            echo '<div class="am-list-news-hd am-cf"><a><h2>';echo $cat_array[$i];echo '</h2></a></div>';
             /*OUT PUT DATA*/
             echo '<div class="am-list-news-bd">';
-            echo $html -> find($div_path[$i]) -> html();
+            echo $html -> find($path_array[$i]) -> html();
             echo '</div>';
         }
     ?>
