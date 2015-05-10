@@ -12,8 +12,8 @@ $path = str_replace('id->','#',$_GET['path']) ;
 $replacer = $_GET['replacer'];
 $cat = $_GET['cat'];
 $title = $_GET['title'];
-$rm = $_GET['rm'];
-$rc = $_GET['rc'];
+$rm = str_replace('id->','#',$_GET['rm']);
+$rc = str_replace('id->','#',$_GET['rc']);
 /*参数判断*/
 if($site_url == '' || $path == '' || $cat == '') die('参数不完整');
 if($title == '') $title = '无标题';
@@ -49,6 +49,7 @@ if($rc != ''){
 
 <!doctype html>
 <!--OBLINE TRANSCODERER POWERED BY NIMITZDEV （NIMITZDEV.ORG）-->
+<!--CURRENT VERSION 0.2.1 (2015-05-10)-->
 <html class="no-js">
 <head>
     <meta charset="utf-8">
