@@ -9,7 +9,6 @@ include 'pq.php';
 /*GET PARAMS*/
 $site_url = $_GET['target'];
 $path = str_replace('id->','#',$_GET['path']) ;
-$replacer = $_GET['replacer'];
 $cat = $_GET['cat'];
 $title = $_GET['title'];
 $rm = str_replace('id->','#',$_GET['rm']);
@@ -22,14 +21,6 @@ $html = phpQuery::newDocumentFile($site_url);
 $path_array = explode('|||',$path);
 $cat_array = explode('|||',$cat);
 /*文档处理*/
-/*RUN REPLACER*/
-if($replacer != ''){
-    $replacer_array = explode('|||',$replacer);
-    for($i = 0;$i < count($replacer_array);$i++) {
-        $replacer_data = explode('||',$replacer_array[$i]);
-        $html = str_replace($replacer_data[0],$replacer_data[1],$html);
-    }
-}
 /*RUN REMOVER*/
 if($rm != ''){
     $rm_array = explode('|||',$rm);
@@ -49,7 +40,7 @@ if($rc != ''){
 
 <!doctype html>
 <!--OBLINE TRANSCODERER POWERED BY NIMITZDEV （NIMITZDEV.ORG）-->
-<!--CURRENT VERSION 0.2.1 (2015-05-10)-->
+<!--CURRENT VERSION 0.2.2 (2015-05-12)-->
 <html class="no-js">
 <head>
     <meta charset="utf-8">
